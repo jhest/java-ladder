@@ -14,7 +14,7 @@ class ResultTest {
     @Test
     void 입력_결과_저장() {
         Result result = new Result(Arrays.asList("꽝", "5000", "꽝", "3000"));
-        List<String> results = result.getResults();
+        List<String> results = result.elements();
 
         assertThat(results.get(0)).isEqualTo("꽝");
     }

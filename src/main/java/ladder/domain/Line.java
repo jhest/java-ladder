@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Line {
-
     public static final boolean NO_LINE = false;
 
     private final List<Boolean> points = new ArrayList<>();
@@ -33,7 +32,7 @@ public class Line {
         return points.get(index - 1);
     }
 
-    public List<Boolean> getPoints() {
+    public List<Boolean> points() {
         return points;
     }
 }

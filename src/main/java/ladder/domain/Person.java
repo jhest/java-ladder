@@ -3,11 +3,10 @@ package ladder.domain;
 import java.util.List;
 
 public class Person {
-
     public static final int MAX_LENGTH = 5;
 
     private final String name;
-    private Integer position;
+    private int position;
 
     public Person(String name, int position) {
         if (name.isEmpty() || name.length() > MAX_LENGTH) {
@@ -17,11 +16,11 @@ public class Person {
         this.position = position;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
-    public Integer getPosition() {
+    public Integer position() {
         return position;
     }
 
@@ -29,15 +28,27 @@ public class Person {
         return String.format("%6s", name);
     }
 
-    public int move(List<Boolean> lineCondition) {
-        if (position < lineCondition.size() && lineCondition.get(position)) {
+    public int move(List<Boolean> condition) {
+        if (isLastPosition(condition) && isLineExist(condition, position)) {
             this.position = position + 1;
             return position;
         }
-        if (position - 1 >= 0 && lineCondition.get(position - 1)) {
+        if (isFirstPosition() && isLineExist(condition, position - 1)) {
             this.position = position - 1;
             return position;
         }
         return position;
+    }
+
+    private boolean isLastPosition(List<Boolean> lineCondition) {
+        return position < lineCondition.size();
+    }
+
+    private boolean isFirstPosition() {
+        return position - 1 >= 0;
+    }
+
+    private Boolean isLineExist(List<Boolean> lineCondition, int position) {
+        return lineCondition.get(position);
     }
 }

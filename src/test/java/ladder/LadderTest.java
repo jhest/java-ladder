@@ -19,8 +19,8 @@ class LadderTest {
         Ladder ladder = new Ladder(countOfPerson, ladderHeight);
         List<Boolean> errorLine = Arrays.asList(true, true);
 
-        Line firstLine = ladder.getLines().get(0);
-        assertThat(firstLine.getPoints()).isNotEqualTo(errorLine);
+        Line firstLine = ladder.lines().get(0);
+        assertThat(firstLine.points()).isNotEqualTo(errorLine);
     }
 
     @Test

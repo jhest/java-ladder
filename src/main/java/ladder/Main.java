@@ -14,7 +14,7 @@ public class Main {
 
         //참여자 입력
         String[] personData = InputView.inputPersonData();
-        PersonList personList = new PersonList(personData);
+        PersonList persons = new PersonList(personData);
 
         //실행 결과 입력
         String[] resultData = InputView.inputResultData();
@@ -24,7 +24,7 @@ public class Main {
         int ladderHeight = InputView.inputLadderHeight();
 
         //사다리 게임 생성
-        Game game = new Game(personList, ladderHeight);
+        Game game = new Game(persons, ladderHeight);
 
         //입력 결과 출력
         ResultView.inputDataInfo(game, result);
@@ -32,16 +32,14 @@ public class Main {
         //게임 진행
         game.playGame();
 
-        //결과 검색
-        String keyword = InputView.inputFindResultKeyword();
-        List<String> findResult = result.findResult(game, keyword);
-
-        //결과 출력
-        if (findResult.size() == 1) {
-            ResultView.printSingleResult(findResult);
-        }
-        if (findResult.size() != 1) {
-            ResultView.printAllResult(findResult);
+        //결과 검색 & 출력
+        while (true) {
+            String keyword = InputView.inputFindResultKeyword();
+            List<String> findResult = result.findResult(game, keyword);
+            ResultView.printResult(findResult);
+            if (keyword.equals("all")) {
+                break;
+            }
         }
     }
 }

@@ -2,9 +2,9 @@ package ladder.domain;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class Game {
-
     private final PersonList persons;
     private final Ladder ladder;
 
@@ -19,21 +19,22 @@ public class Game {
     }
 
     public String formattedNames() {
-        return persons.getPersonList().stream()
-                .map(Person::spaceAddedName)
-                .reduce((n1, n2) -> n1 + n2)
-                .get();
+        return persons.transformNames();
     }
 
     public List<Line> ladderLines() {
-        return Collections.unmodifiableList(ladder.getLines());
+        return Collections.unmodifiableList(ladder.lines());
     }
 
     public void playGame() {
         persons.movePersons(ladder);
     }
 
-    public PersonList getPersons() {
-        return persons;
+    public List<String> findAllResult(String keyword, List<String> results) {
+        return persons.allResults(keyword, results);
+    }
+
+    public Optional<Integer> findSingleResult(String keyword, List<String> results) {
+        return persons.singleResult(keyword, results);
     }
 }

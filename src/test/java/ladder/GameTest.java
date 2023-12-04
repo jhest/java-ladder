@@ -27,10 +27,10 @@ class GameTest {
         List<LineCondition> conditions = List.of(() -> true, () -> true, () -> true);
         Game game = new Game(personList, conditions);
         game.playGame();
-        List<Person> persons = personList.getPersonList();
+        List<Person> persons = personList.persons();
 
-        assertThat(persons.get(0).getPosition()).isEqualTo(1);
-        assertThat(persons.get(1).getPosition()).isEqualTo(0);
+        assertThat(persons.get(0).position()).isEqualTo(1);
+        assertThat(persons.get(1).position()).isEqualTo(0);
     }
 
     @Test
@@ -39,9 +39,9 @@ class GameTest {
         List<LineCondition> conditions = List.of(() -> true, () -> true);
         Game game = new Game(personList, conditions);
         game.playGame();
-        List<Person> persons = personList.getPersonList();
+        List<Person> persons = personList.persons();
 
-        assertThat(persons.get(0).getPosition()).isEqualTo(0);
-        assertThat(persons.get(1).getPosition()).isEqualTo(1);
+        assertThat(persons.get(0).position()).isEqualTo(0);
+        assertThat(persons.get(1).position()).isEqualTo(1);
     }
 }

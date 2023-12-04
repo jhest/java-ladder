@@ -25,7 +25,7 @@ public class ResultView {
 
     private static void printLines(Line line) {
         System.out.print("     ");
-        line.getPoints().forEach(point -> {
+        line.points().forEach(point -> {
             if (point) {
                 System.out.print("|-----");
             }
@@ -37,15 +37,10 @@ public class ResultView {
         System.out.print(System.lineSeparator());
     }
 
-    public static void printSingleResult(List<String> result) {
-        System.out.print(System.lineSeparator());
-        System.out.println("실행결과");
-        System.out.println(result.get(0));
-    }
-
-    public static void printAllResult(List<String> result) {
+    public static void printResult(List<String> result) {
         System.out.print(System.lineSeparator());
         System.out.println("실행결과");
         result.forEach(System.out::println);
+        System.out.print(System.lineSeparator());
     }
 }

@@ -15,10 +15,10 @@ class LineTest {
     void 라인_생성() {
         int countOfPerson = 3;
         Line lineTF = new Line(countOfPerson, () -> true);
-        List<Boolean> pointsTF = lineTF.getPoints(); // true, false
+        List<Boolean> pointsTF = lineTF.points(); // true, false
 
         Line lineFX = new Line(countOfPerson, () -> false);
-        List<Boolean> pointsFX = lineFX.getPoints(); // false, (true/false)
+        List<Boolean> pointsFX = lineFX.points(); // false, (true/false)
 
         assertThat(pointsTF).isEqualTo(Arrays.asList(true, false));
         assertThat(pointsFX.get(0)).isFalse();
@@ -29,7 +29,7 @@ class LineTest {
         int countOfPerson = 3;
         RandomLineCondition pointCondition = new RandomLineCondition();
         Line line = new Line(countOfPerson, pointCondition);
-        List<Boolean> points = line.getPoints();
+        List<Boolean> points = line.points();
 
         assertThat(points).isNotEqualTo(Arrays.asList(true, true));
     }

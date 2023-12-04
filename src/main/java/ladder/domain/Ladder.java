@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ladder {
+    public static final int MIN_HEIGHT = 1;
 
     private final List<Line> lines = new ArrayList<>();
 
     public Ladder(int countOfPerson, int ladderHeight) {
-        if (ladderHeight < 1) {
+        if (ladderHeight < MIN_HEIGHT) {
             throw new IllegalArgumentException("사다리 높이는 0보다 커야 합니다.");
         }
         RandomLineCondition lineCondition = new RandomLineCondition();
@@ -18,7 +19,7 @@ public class Ladder {
     }
 
     public Ladder(int countOfPerson, List<LineCondition> condition) {
-        if (condition.size() < 1) {
+        if (condition.size() < MIN_HEIGHT) {
             throw new IllegalArgumentException("사다리 높이는 0보다 커야 합니다.");
         }
         for (LineCondition lineCondition : condition) {
@@ -26,7 +27,7 @@ public class Ladder {
         }
     }
 
-    public List<Line> getLines() {
+    public List<Line> lines() {
         return lines;
     }
 }

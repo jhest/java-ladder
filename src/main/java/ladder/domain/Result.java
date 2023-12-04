@@ -5,44 +5,52 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Result {
+    public static final int MAX_LENGTH = 5;
 
     private final List<String> results;
 
     public Result(List<String> results) {
-        if (results.stream().anyMatch(r -> r.length() > 5) || results.stream().anyMatch(String::isEmpty)) {
+        if (isOverLength(results.stream()) || isEmpty(results.stream())) {
             throw new IllegalArgumentException("결과는 1 ~ 5 자로 입력하세요.");
         }
         this.results = results;
     }
 
     public Result(String[] resultData, String[] personData) {
-        if (Arrays.stream(resultData).count() != Arrays.stream(personData).count()) {
-            throw new IllegalArgumentException("참가자 숫자와 동일한 결과를 입력하세요.");
-        }
-        if (Arrays.stream(resultData).anyMatch(r -> r.length() > 5) ||
-                Arrays.stream(resultData).anyMatch(String::isEmpty)) {
+        if (isOverLength(Arrays.stream(resultData)) || isEmpty(Arrays.stream(resultData))) {
             throw new IllegalArgumentException("결과는 1 ~ 5 자로 입력하세요.");
+        }
+        if (isSameSize(resultData, personData)) {
+            throw new IllegalArgumentException("참가자 숫자와 동일한 결과를 입력하세요.");
         }
         this.results = Arrays.stream(resultData).collect(Collectors.toList());
     }
 
-    public List<String> getResults() {
+    private static boolean isOverLength(Stream<String> results) {
+        return results.anyMatch(r -> r.length() > MAX_LENGTH);
+    }
+
+    private static boolean isEmpty(Stream<String> results) {
+        return results.anyMatch(String::isEmpty);
+    }
+
+    private static boolean isSameSize(String[] resultData, String[] personData) {
+        return Arrays.stream(resultData).count() != Arrays.stream(personData).count();
+    }
+
+    public List<String> elements() {
         return results;
     }
 
-    public List<String> findResult(Game game, String name) {
-        if (name.equals("all")) {
-            return game.getPersons().getPersonList().stream()
-                    .map(p -> p.getName() + " : " + results.get(p.getPosition()))
-                    .collect(Collectors.toList());
+    public List<String> findResult(Game game, String keyword) {
+        if (keyword.equals("all")) {
+            return game.findAllResult(keyword, results);
         }
 
-        Optional<Integer> findResult = game.getPersons().getPersonList().stream()
-                .filter(p -> p.getName().equals(name))
-                .map(Person::getPosition)
-                .findAny();
+        Optional<Integer> findResult = game.findSingleResult(keyword, results);
 
         if (findResult.isEmpty()) {
             return Collections.singletonList("일치하는 이름이 없습니다.");

@@ -16,8 +16,8 @@ class PersonTest {
         String name = "java";
         Person person = new Person(name, 0);
 
-        assertThat(person.getName()).isEqualTo(name);
-        assertThat(person.getPosition()).isEqualTo(0);
+        assertThat(person.name()).isEqualTo(name);
+        assertThat(person.position()).isEqualTo(0);
     }
 
     @Test

@@ -15,7 +15,7 @@ class PersonListTest {
     @Test
     void 객체_생성() {
         PersonList personList = new PersonList(Arrays.asList(new Person("p1", 0), new Person("p2", 1)));
-        List<Person> persons = personList.getPersonList();
+        List<Person> persons = personList.persons();
 
         assertThat(persons).hasSize(2);
     }
